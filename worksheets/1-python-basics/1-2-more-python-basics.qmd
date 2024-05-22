@@ -1,10 +1,10 @@
 ---
-jupyter: python3
 execute:
   enabled: false
+title: 'Worksheet 1.2: More Python Basics'
+jupyter: python3
 ---
 
-# Worksheet 1.2: More Python Basics
 
 This is the second part of Worksheet 1. In general, you can expect the
 worksheets for this course to be split into parts, each of which takes place
@@ -50,15 +50,18 @@ digits in the tens place. So:
 Implement this function. You may find it helpful to use the `%` and `//`
 [operators](https://softdes.olin.edu/docs/readings/1-python-basics/#integers-and-arithmetic-operators).
 
+
 ```{python}
 def tens(number):
-    pass  # Replace this line with your code.
+    number = number % 100
+    return number//10
+    
 ```
 
 If you want to try running the function, you can do so here:
 
 ```{python}
-tens(42)
+tens(11153)
 ```
 
 ### 1.2. Digital Logic
@@ -80,13 +83,22 @@ Implement this function using an `if`/`elif`/`else` statement.
 
 ```{python}
 def gate(number):
-    pass  # Replace this line with your code.
+    if tens(number) == 1:
+        print(number % 10)
+    elif tens(number) == 2:
+        print(-1*(number % 10))
+    elif tens(number) == 3:
+        print(10 + (number % 10))
+    elif tens(number) == 4:
+        print(-1*(10+(number % 10)))
+    else:
+        print(0)
 ```
 
 If you want to try running the function you can do so here:
 
 ```{python}
-gate(17)
+gate(42)
 ```
 
 ### 1.3. Slice It Up
@@ -107,13 +119,13 @@ see the output.
 ```{python}
 source_string = "String slicing FTW!"
 
-print(source_string[0])  # This should print "F"
-print(source_string[0])  # This should print "slicing FTW!"
-print(source_string[0])  # This should print "FTW!"
-print(source_string[0])  # This should print "String slicing FTW"
-print(source_string[0])  # This should print "!WTF gnicils gnirtS"
-print(source_string[0])  # This should print "WTF"
-print(source_string[0])  # This should print "tnscgT"
+print(source_string[-4])  # This should print "F"
+print(source_string[7:-1])  # This should print "slicing FTW!"
+print(source_string[-4:-1])  # This should print "FTW!"
+print(source_string[:])  # This should print "String slicing FTW"
+print(source_string[::-1])  # This should print "!WTF gnicils gnirtS"
+print(source_string[-2:-5:-1])  # This should print "WTF"
+print(source_string[1:-2:3])  # This should print "tnscgT"
 ```
 
 ## 2. Stylish Python
@@ -166,25 +178,39 @@ Instead, this is the cell you should edit:
 
 ```{python}
 where = "MA"
+MA_Number = 1.0625
+Population = 175
+MA_Number_One = 0.0625
 
 def t(p, c):
-    if c == "Groceries":
+    """
+
+    Returns the price of a commodity in MA
+
+    Args:
+        p: National Avg. Price (float)
+        c: The commodity (string)
+
+    Returns:
+        The price of the commodity in MA
+    """
+    if c == "Grocery_Cost_MA":
         return p
-    if c == "Prepared food":
-        return p * 1.0625
-    if c == "Prescription drug":
+    if c == "Prepared_Food_Cost_MA":
+        return p * MA_Number
+    if c == "Prescription_Drug_Cost_MA":
         return p
-    if c == "Non-prescription drug":
-        return p * 1.0625
-    if c == "Clothing":
-        if p < 175:
+    if c == "Non-Prescription_Drug_Cost_MA":
+        return p * MA_Number
+    if c == "Clothing_Cost_MA":
+        if p < Population:
             return p
-        return p + 0.0625 * (p - 175)
-    if c == "Intangibles":
+        return p + MA_Number_One * (p - Population)
+    if c == "Intangibles_Cost_MA":
         return p
-    if c == "Feminine Hygiene":
+    if c == "Feminine_Hygiene_Cost_MA":
         return p
-    return p * 1.0625
+    return p * MA_Number
 ```
 
 For all of the tasks in this problem, you should edit the code above.
@@ -270,3 +296,4 @@ submitting Worksheets 1.1 and 1.2.
 Finally, follow the rest of the assignment submission process: push these
 changes to your GitHub repository (`origin`), find the commit URL, and submit
 that on Canvas.
+
