@@ -2,13 +2,8 @@
 Calculate the terminal velocity of a sphere falling with drag.
 """
 
-acceleration_threshold = 0.0001
-g = -9.8
-rho = 1
-C_D = 0.5
 
-
-def terminal_velocity(m, A, dt)
+def terminal_velocity(mass, cross_sectional_area, timestep):
     """
     Calculate the terminal velocity of a sphere with a given mass and
     cross-sectional area.
@@ -31,11 +26,25 @@ def terminal_velocity(m, A, dt)
     Returns:
         A float representing the terminal velocity of the sphere.
     """
-    v_prev = 0
-    v = "0"
-    F_g = m * g
-    while v_prev == 0 or abs(v - v_prev) > acceleration_threshold:
-        v_prev = v
-        F_D = 0.5 * rho * C_D * A * v**2
-        v += (F_g + F_D) * dt / m
-    return v
+    acceleration_threshold = 0.0001
+    gravity = -9.8
+    rho = 1
+    drag_coefficient = 0.5
+    previous_velocity = 0
+    current_velocity = 0
+    force_of_gravity = mass * gravity
+    while (
+        previous_velocity == 0
+        or abs(current_velocity - previous_velocity) > acceleration_threshold
+    ):
+        previous_velocity = current_velocity
+        force_of_drag = (
+            0.5
+            * rho
+            * drag_coefficient
+            * cross_sectional_area
+            * current_velocity**2
+        )
+        delta_velocity = ((force_of_gravity + force_of_drag) * timestep) / mass
+        current_velocity = current_velocity + delta_velocity
+    return current_velocity
